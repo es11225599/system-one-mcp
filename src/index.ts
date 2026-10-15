@@ -3,7 +3,7 @@
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
 import { getConfig } from "./config.js";
-import { EvaluateSchema } from "./schemas.js";
+import { EvaluateSchema, ListModelsSchema } from "./schemas.js";
 import { SystemOneClient, SystemOneError } from "./client.js";
 
 const cfg = getConfig();
@@ -21,7 +21,7 @@ server.tool("systemone_evaluate", "Answer typed choice/score/noul questions with
   }
 });
 
-server.tool("systemone_list_models", "List available System One models on the configured backend.", {}, async () => {
+server.tool("systemone_list_models", "List available System One models on the configured backend.", ListModelsSchema.shape, async () => {
   try {
     const res = await client.listModels();
     return { content: [{ type: "text" as const, text: JSON.stringify(res) }] };
