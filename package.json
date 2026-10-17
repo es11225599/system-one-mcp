@@ -21,11 +21,11 @@
   "type": "module",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/es11225599/system-one-mcp.git"
+    "url": "git+https://github.com/es11225599/systemone-mcp.git"
   },
-  "homepage": "https://github.com/es11225599/system-one-mcp#readme",
+  "homepage": "https://github.com/es11225599/systemone-mcp#readme",
   "bugs": {
-    "url": "https://github.com/es11225599/system-one-mcp/issues"
+    "url": "https://github.com/es11225599/systemone-mcp/issues"
   },
   "bin": {
     "systemone-mcp": "dist/index.js"
