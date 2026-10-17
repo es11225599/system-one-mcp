@@ -8,7 +8,7 @@ import { SystemOneClient, SystemOneError } from "./client.js";
 
 const cfg = getConfig();
 const client = new SystemOneClient(cfg);
-const server = new McpServer({ name: "system-one-mcp", version: "0.1.0" });
+const server = new McpServer({ name: "systemone-mcp", version: "0.1.0" });
 
 server.tool("systemone_evaluate", "Answer typed choice/score/noul questions with a System One model (jev/nimble/kev/tev/laya).", EvaluateSchema.shape, async (args) => {
   try {

@@ -1,4 +1,4 @@
-# system-one-mcp
+# systemone-mcp
 
 MCP server for any System One backend (Ollama nimble/tev/clef, TypeSafe jev, Kev, Laya).
 
@@ -26,11 +26,11 @@ See `.env.example` for a copy-paste starting point.
 No build, no clone, no `npm install` — the published package ships prebuilt, so `npx`/`bunx` fetch a ready-to-run server.
 
 ```bash
-npx -y @es11225599/system-one-mcp
+npx -y @es11225599/systemone-mcp
 ```
 
 ```bash
-bunx @es11225599/system-one-mcp
+bunx @es11225599/systemone-mcp
 ```
 
 Requires Node >= 20 (or Bun). First run downloads the package; later runs are cached.
@@ -46,7 +46,7 @@ Point any MCP client at the runner. Nothing to build or install locally:
   "mcpServers": {
     "system-one": {
       "command": "npx",
-      "args": ["-y", "@es11225599/system-one-mcp"],
+      "args": ["-y", "@es11225599/systemone-mcp"],
       "env": {
         "SYSTEMONE_BASE_URL": "http://localhost:11434",
         "SYSTEMONE_MODEL": "nimble"
@@ -63,7 +63,7 @@ With Bun, swap the command and args:
   "mcpServers": {
     "system-one": {
       "command": "bunx",
-      "args": ["@es11225599/system-one-mcp"],
+      "args": ["@es11225599/systemone-mcp"],
       "env": {
         "SYSTEMONE_BASE_URL": "http://localhost:11434",
         "SYSTEMONE_MODEL": "nimble"
@@ -81,7 +81,7 @@ Both forward stdio, so the server is fully wired either way. If your client reso
 claude mcp add system-one \
   -e SYSTEMONE_BASE_URL=http://localhost:11434 \
   -e SYSTEMONE_MODEL=nimble \
-  -- npx -y @es11225599/system-one-mcp
+  -- npx -y @es11225599/systemone-mcp
 ```
 
 ### From a clone (development)

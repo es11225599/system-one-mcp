@@ -1,5 +1,5 @@
 {
-  "name": "@es11225599/system-one-mcp",
+  "name": "@es11225599/systemone-mcp",
   "version": "0.1.0",
   "description": "stdio MCP server for any System One backend (Ollama nimble/tev/clef, TypeSafe jev, Kev, Laya). Run with npx or bunx, no build required.",
   "keywords": [
@@ -28,7 +28,7 @@
     "url": "https://github.com/es11225599/system-one-mcp/issues"
   },
   "bin": {
-    "system-one-mcp": "dist/index.js"
+    "systemone-mcp": "dist/index.js"
   },
   "files": [
     "dist",
