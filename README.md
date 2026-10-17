@@ -9,6 +9,8 @@ Exposes two stdio tools:
 
 Thin Zod-validated passthrough: MCP tools -> `fetch({baseUrl}/v1/systemone)` with optional Bearer key. `model` is a free-form non-empty string (never a hard-coded enum).
 
+Run it with `npx` or `bunx` — see [Install](#install).
+
 ## Env
 
 | Variable | Default | Notes |
@@ -19,7 +21,70 @@ Thin Zod-validated passthrough: MCP tools -> `fetch({baseUrl}/v1/systemone)` wit
 
 See `.env.example` for a copy-paste starting point.
 
+## Install
+
+No build, no clone, no `npm install` — the published package ships prebuilt, so `npx`/`bunx` fetch a ready-to-run server.
+
+```bash
+npx -y @es11225599/system-one-mcp
+```
+
+```bash
+bunx @es11225599/system-one-mcp
+```
+
+Requires Node >= 20 (or Bun). First run downloads the package; later runs are cached.
+
 ## Run
+
+### npx / bunx (recommended)
+
+Point any MCP client at the runner. Nothing to build or install locally:
+
+```json
+{
+  "mcpServers": {
+    "system-one": {
+      "command": "npx",
+      "args": ["-y", "@es11225599/system-one-mcp"],
+      "env": {
+        "SYSTEMONE_BASE_URL": "http://localhost:11434",
+        "SYSTEMONE_MODEL": "nimble"
+      }
+    }
+  }
+}
+```
+
+With Bun, swap the command and args:
+
+```json
+{
+  "mcpServers": {
+    "system-one": {
+      "command": "bunx",
+      "args": ["@es11225599/system-one-mcp"],
+      "env": {
+        "SYSTEMONE_BASE_URL": "http://localhost:11434",
+        "SYSTEMONE_MODEL": "nimble"
+      }
+    }
+  }
+}
+```
+
+Both forward stdio, so the server is fully wired either way. If your client resolves binaries through a shell, `npx.cmd` / `bunx.cmd` are the Windows equivalents.
+
+### Claude Code
+
+```bash
+claude mcp add system-one \
+  -e SYSTEMONE_BASE_URL=http://localhost:11434 \
+  -e SYSTEMONE_MODEL=nimble \
+  -- npx -y @es11225599/system-one-mcp
+```
+
+### From a clone (development)
 
 ```bash
 npm install
@@ -35,26 +100,27 @@ npm run build
 $env:SYSTEMONE_BASE_URL="http://localhost:11434"; node dist/index.js
 ```
 
-## Claude Code
-
-Add to your Claude Code MCP config:
-
-```json
-{
-  "mcpServers": {
-    "system-one": {
-      "command": "node",
-      "args": ["<path-to-system-one-mcp>/dist/index.js"],
-      "env": {
-        "SYSTEMONE_BASE_URL": "http://localhost:11434",
-        "SYSTEMONE_MODEL": "nimble"
-      }
-    }
-  }
-}
-```
+`npm run dev` (tsx) skips the build for local iteration.
 
 For TypeSafe cloud / Kev / Laya, add `"SYSTEMONE_API_KEY": "<key>"` to `env` and point `SYSTEMONE_BASE_URL` at that backend.
+
+## Release
+
+Publishing is manual, via GitHub Actions — no CI publish on push.
+
+1. Bump `version` in `package.json` (and commit `package-lock.json` alongside it).
+2. Run the **Publish to npm** workflow from the Actions tab.
+3. Leave `dry_run` ticked first to validate the tarball without publishing; untick to actually publish.
+
+The workflow runs `npm ci` (which builds `dist/` via `prepare`), typechecks, tests, refuses to
+publish a version that already exists on npm, and publishes with provenance. Concurrency is locked so
+two runs can't race for the same version.
+
+It authenticates with an `NPM_TOKEN` repository secret, which must be created once under
+**Settings → Secrets and variables → Actions**. Use a *granular* access token scoped to this package
+only, rather than a full account token.
+
+Release locally with `npm run release` if you prefer.
 
 ## Manual parity
 
