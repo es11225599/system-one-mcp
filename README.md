@@ -104,24 +104,6 @@ $env:SYSTEMONE_BASE_URL="http://localhost:11434"; node dist/index.js
 
 For TypeSafe cloud / Kev / Laya, add `"SYSTEMONE_API_KEY": "<key>"` to `env` and point `SYSTEMONE_BASE_URL` at that backend.
 
-## Release
-
-Publishing is manual, via GitHub Actions — no CI publish on push.
-
-1. Bump `version` in `package.json` (and commit `package-lock.json` alongside it).
-2. Run the **Publish to npm** workflow from the Actions tab.
-3. Leave `dry_run` ticked first to validate the tarball without publishing; untick to actually publish.
-
-The workflow runs `npm ci` (which builds `dist/` via `prepare`), typechecks, tests, refuses to
-publish a version that already exists on npm, and publishes with provenance. Concurrency is locked so
-two runs can't race for the same version.
-
-It authenticates with an `NPM_TOKEN` repository secret, which must be created once under
-**Settings → Secrets and variables → Actions**. Use a *granular* access token scoped to this package
-only, rather than a full account token.
-
-Release locally with `npm run release` if you prefer.
-
 ## Manual parity
 
 Direct HTTP check against an Ollama backend running `nimble` (bypasses MCP, same endpoint the server calls):
